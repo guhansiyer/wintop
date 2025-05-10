@@ -19,7 +19,7 @@ void print_process_info(Options *opts) {
     DWORD modsize;
 
     if (EnumProcessModules(proc, mod, sizeof(mod), &modsize)) {
-        GetModuleBaseNameA(proc, mod, name, sizeof(name));
+        GetModuleBaseNameA(proc, mod, &name, sizeof(name));
     }
 
     printf("Process: %s (PID %lu)\n\n", name, (*opts).pid);

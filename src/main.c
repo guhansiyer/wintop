@@ -1,3 +1,4 @@
+#include <conio.h>
 #include <stdio.h>
 #include <Windows.h>
 
@@ -19,11 +20,19 @@ int main (int argc, char **argv) {
 
     if (!enable_debug_privileges()) {
         fprintf(stderr, "Warning: Could not enable SeDebugPrivilege. Some threads may be inaccessible.\n");
-        return 1;
     }
 
-    print_process_info(&opts);
-    print_threads(&opts);
+    do {
+        system("cls");
+        print_process_info(&opts);
+        print_threads(&opts);
+
+        if (opts.refresh_interval > 0) {
+            printf("\n Press any key to stop.\n");
+            Sleep(opts.refresh_interval * 1000);
+        }
+    } while (opts.refresh_interval > 0 && !(_kbhit()));
+
 
     return 0;
 }
